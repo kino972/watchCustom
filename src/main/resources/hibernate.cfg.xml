@@ -11,7 +11,12 @@
     <property name="connection.password">kino</property>
     <property name="show_sql">true</property>
         
+    <!-- product related mapping -->
     <mapping class="com.kino.entity.product" />
-     
+    <mapping class="com.kino.entity.category" />
+    <mapping class="com.kino.entity.tag" />
+    <mapping class="com.kino.entity.step" />
+    <mapping class="com.kino.entity.sub_step" />
+    
   </session-factory>
 </hibernate-configuration>

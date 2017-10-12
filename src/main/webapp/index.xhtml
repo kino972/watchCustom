@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:mp="http://primefaces.org/ui/material"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+     <h:head>
+
+     </h:head>
+
+<h:body>
+<!-- steps define product category -->
+	<p:breadCrumb>
+			<c:forEach items="#{sub_steps}" var="sub_step" varStatus="loop">	
+						<p:menuitem ui-state-active="true" value="#{sub_step.name}" url="#{sub_step.sub_step_id}"/>
+			</c:forEach>
+	</p:breadCrumb>
+	
+		
+	<!-- search product by categorie -->
+    <h:form>
+          
+    <p:panel id="panel" header="Search Form" style="margin-bottom:10px;">
+        <p:messages id="messages" />
+ 
+        <h:panelGrid columns="4" cellpadding="5">
+            <h:outputLabel for="txt1" value="Search:" />
+            <p:inputText id="txt1" value="#{searchView.text1}" required="true" label="Text 1">
+                <f:validateLength minimum="2" />
+            </p:inputText>
+            <p:message for="txt1" />
+            <h:outputText value="#{searchView.text1}" />
+ 
+            <h:outputLabel for="txt2" value="with tags:" />
+            <h:selectOneMenu id="txt2" value="#{searchView.text2}" required="true" label="Text 2">
+               <c:forEach items="#{tags}" var="tag" varStatus="loop">
+    				<f:selectItem itemValue="#{tag.tag_id}" itemLabel="#{tag.name}" />
+			   </c:forEach>
+            </h:selectOneMenu>
+           <!--  <p:message for="@previous" /> -->
+            <h:outputText value="#{searchView.text2}" />
+        </h:panelGrid>
+    </p:panel>
+ 
+    <h:panelGrid columns="2">
+    <!--  
+    <p:commandButton value="With Icon" id="withIcon" actionListener="#{buttonView.buttonAction}" update="grow" icon="ui-icon-disk" />
+    -->
+    
+    <!-- 
+        <p:commandButton process="@parent:@parent" update="@form" value="Process: @parent:parent (Form)" />
+        <p:commandButton process="@form:@child(1):txt1" update="@form" value="Process: @form:@child(1):txt1 (Text 1)" />
+    -->
+    </h:panelGrid>
+    <p:commandButton value="Non-Ajax Submit" id="nonAjax" actionListener="#{homeManager.searchProduct}" ajax="false" />
+</h:form>
+</h:body>
+
+<style type="text/css">
+.ui-steps .ui-steps-item {
+    width: 14%;
+}
+ 
+.ui-state-highlight {
+    text-shadow: none !important;
+}
+ 
+.ui-steps.custom {
+    margin-bottom: 30px;
+}
+ 
+.ui-steps.custom .ui-steps-item .ui-menuitem-link {
+    height: 10px;
+    padding: 0 1em;
+}
+ 
+.ui-steps.custom .ui-steps-item .ui-steps-number {
+    background-color: #0081c2;
+    color: #FFFFFF;
+    display: inline-block;
+    width: 30px;
+    border-radius: 10px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+ 
+.ui-steps.custom .ui-steps-item.ui-state-highlight .ui-steps-title {
+    color: #555;
+}
+</style>
+ 
+
+</ui:composition>

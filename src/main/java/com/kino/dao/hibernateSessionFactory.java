@@ -31,7 +31,7 @@ public class hibernateSessionFactory implements hibernateSessionFactoryInterface
        		return session;
 
     	} catch (Exception ex) {
-    		logger.fatal("something went wrong when getting hibernate session returning null"+ ex.getMessage());
+    		logger.fatal("something went wrong when getting hibernate session returning null "+ ex.getMessage());
     	    StandardServiceRegistryBuilder.destroy(registry);
     	    return null;
     	}

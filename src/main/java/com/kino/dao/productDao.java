@@ -18,10 +18,33 @@ public class productDao implements productDaoInterface{
 	
 	
 	@Inject
-	@RequestScoped
 	private Session session;
 	
-	public List<?> readAllProduct(){
+	public List<?> readAllProductsByCategory(int category_id){
+		String hql = "FROM product p WHERE p.fk_category_id=:category_id";
+        Query query = session.createQuery(hql);
+        query.setInteger("category_id",category_id);
+        List<?> categories = query.list();
+        return categories;
+	}
+	
+	public List<?> readAllProductsByTagId(int id){
+		String hql = "FROM product p JOIN p.tag t WHERE t.tag_id=:id";
+        Query query = session.createQuery(hql);
+        query.setInteger("id",id);
+        List<?> products = query.list();
+        return products;
+	}
+	
+	public List<?> readAllProductsByTagName(String name){
+		String hql = "FROM product p JOIN p.tag t WHERE t.name=:name";
+		 Query query = session.createQuery(hql);
+	     query.setString("id",name);
+	     List<?> products = query.list();
+	        return products;
+	}
+	
+	public List<?> readAllProducts(){
 		String hql = "FROM product";
 		try{
 			Query query = session.createQuery(hql);
@@ -34,6 +57,20 @@ public class productDao implements productDaoInterface{
 			return null;
 		}
 		
+	}
+	
+	public List<?> getproductByCategoryId(int id){
+		try{
+		String hql = "select p FROM product p JOIN p.category c WHERE c.category_id=:id";
+		Query query = session.createQuery(hql);
+        query.setInteger("id",id);
+        List<?> products = query.list();
+        return products;
+		}
+		catch(Exception e){
+			logger.fatal("error while getting category by id"+e.getMessage());
+			return null;
+		}
 	}
 	
 	public product readProductById(int id) {

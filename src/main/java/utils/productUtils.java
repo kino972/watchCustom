@@ -12,7 +12,7 @@ public class productUtils {
 			for(product p:li)
 			{
 				if(p != null){
-					description = p.toString();
+					description = description + "product: " + p.getTitle()+" ";
 				}
 			}
 		}
